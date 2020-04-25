@@ -1,9 +1,8 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-
+import React, { useContext } from "react";
+import ShopContext from "../context/shop";
+import { totalCount } from "../utils/total";
 import MainNavigation from "../components/MainNavigation";
-import { addProductToCart } from "../actions/actions";
+
 import "./Products.css";
 
 const products = [
@@ -13,7 +12,9 @@ const products = [
   { id: "p4", title: "Half-dried plant", price: 2.99 },
 ];
 
-const ProductsPage = ({ cartItemCount, addProductToCart }) => {
+const ProductsPage = () => {
+  const { cart, addProductToCart } = useContext(ShopContext);
+  const cartItemCount = totalCount(cart);
   return (
     <>
       <MainNavigation cartItemNumber={cartItemCount} />
@@ -37,20 +38,4 @@ const ProductsPage = ({ cartItemCount, addProductToCart }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    cartItemCount: state.cart.reduce((count, curItem) => {
-      return count + curItem.quantity;
-    }, 0),
-  };
-};
-
-ProductsPage.propTypes = {
-  cartItemCount: PropTypes.number.isRequired,
-  addProductToCart: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  { addProductToCart }
-)(ProductsPage);
+export default ProductsPage;
