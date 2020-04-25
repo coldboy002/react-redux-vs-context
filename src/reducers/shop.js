@@ -3,7 +3,7 @@ import {
   REMOVE_PRODUCT_FROM_CART,
 } from "../actions/actions";
 
-const shopReducer = (state = [], action) => {
+const shopReducer = (state, action) => {
   let updatedCart;
   let updatedItemIndex;
   switch (action.type) {
