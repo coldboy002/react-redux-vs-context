@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import ShopContext from "../context/shop";
 
+import { totalCount } from "../utils/total";
 import MainNavigation from "../components/MainNavigation";
 import "./Cart.css";
 
 const CartPage = () => {
   const { cart, removeProductFromCart } = useContext(ShopContext);
-  const cartItemCount = cart.reduce((count, curItem) => {
-    return count + curItem.quantity;
-  }, 0);
+  const cartItemCount = totalCount(cart);
   return (
     <>
       <MainNavigation cartItemNumber={cartItemCount} />
