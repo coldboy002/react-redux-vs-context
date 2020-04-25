@@ -51,7 +51,6 @@ class GlobalState extends Component {
     return (
       <ShopContext.Provider
         value={{
-          products: this.state.products,
           cart: this.state.cart,
           addProductToCart: this.addProductToCart,
           removeProductFromCart: this.removeProductFromCart

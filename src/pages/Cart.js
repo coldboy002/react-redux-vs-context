@@ -1,19 +1,21 @@
-import React from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
+import ShopContext from "../context/shop";
 
 import MainNavigation from "../components/MainNavigation";
-import { removeProductFromCart } from "../actions/actions";
 import "./Cart.css";
 
-const CartPage = ({ cartItems, cartItemCount, removeProductFromCart }) => {
+const CartPage = () => {
+  const { cart, removeProductFromCart } = useContext(ShopContext);
+  const cartItemCount = cart.reduce((count, curItem) => {
+    return count + curItem.quantity;
+  }, 0);
   return (
     <>
       <MainNavigation cartItemNumber={cartItemCount} />
       <main className="cart">
-        {cartItems.length <= 0 && <p>No Item in the Cart!</p>}
+        {cart.length <= 0 && <p>No Item in the Cart!</p>}
         <ul>
-          {cartItems.map((cartItem) => (
+          {cart.map((cartItem) => (
             <li key={cartItem.id}>
               <div>
                 <strong>{cartItem.title}</strong> - ${cartItem.price} (
@@ -32,29 +34,4 @@ const CartPage = ({ cartItems, cartItemCount, removeProductFromCart }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    cartItems: state.cart,
-    cartItemCount: state.cart.reduce((count, curItem) => {
-      return count + curItem.quantity;
-    }, 0),
-  };
-};
-
-CartPage.propTypes = {
-  cartItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      quantity: PropTypes.number,
-      price: PropTypes.number,
-    })
-  ).isRequired,
-  cartItemCount: PropTypes.number.isRequired,
-  removeProductFromCart: PropTypes.func.isRequired,
-};
-
-export default connect(
-  mapStateToProps,
-  { removeProductFromCart }
-)(CartPage);
+export default CartPage;
