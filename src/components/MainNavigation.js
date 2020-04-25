@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import "./MainNavigation.css";
 
-const mainNavigation = ({cartItemNumber}) => (
+const mainNavigation = ({ cartItemNumber }) => (
   <header className="main-navigation">
     <nav>
       <ul>
@@ -19,7 +19,7 @@ const mainNavigation = ({cartItemNumber}) => (
   </header>
 );
 
-mainNavigation.PropTypes = {
+mainNavigation.propTypes = {
   cartItemNumber: PropTypes.number,
 };
 export default mainNavigation;
